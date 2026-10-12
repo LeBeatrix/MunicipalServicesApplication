@@ -48,10 +48,10 @@
             // lblLocation
             // 
             this.lblLocation.AutoSize = true;
-            this.lblLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLocation.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLocation.Location = new System.Drawing.Point(37, 81);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(78, 20);
+            this.lblLocation.Size = new System.Drawing.Size(79, 23);
             this.lblLocation.TabIndex = 0;
             this.lblLocation.Text = "Location:";
             // 
@@ -69,10 +69,10 @@
             // lblCategory
             // 
             this.lblCategory.AutoSize = true;
-            this.lblCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCategory.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCategory.Location = new System.Drawing.Point(37, 170);
             this.lblCategory.Name = "lblCategory";
-            this.lblCategory.Size = new System.Drawing.Size(81, 20);
+            this.lblCategory.Size = new System.Drawing.Size(83, 23);
             this.lblCategory.TabIndex = 2;
             this.lblCategory.Text = "Category:";
             // 
@@ -80,11 +80,11 @@
             // 
             this.cmbCategory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbCategory.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbCategory.FormattingEnabled = true;
             this.cmbCategory.Location = new System.Drawing.Point(41, 209);
             this.cmbCategory.Name = "cmbCategory";
-            this.cmbCategory.Size = new System.Drawing.Size(897, 28);
+            this.cmbCategory.Size = new System.Drawing.Size(897, 31);
             this.cmbCategory.TabIndex = 3;
             this.cmbCategory.Text = "Select a category";
             this.cmbCategory.SelectedIndexChanged += new System.EventHandler(this.cmbCategory_SelectedIndexChanged);
@@ -92,10 +92,10 @@
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescription.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescription.Location = new System.Drawing.Point(37, 253);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(100, 20);
+            this.lblDescription.Size = new System.Drawing.Size(100, 23);
             this.lblDescription.TabIndex = 4;
             this.lblDescription.Text = "Description:";
             // 
@@ -113,22 +113,23 @@
             // 
             // btnAttachFile
             // 
-            this.btnAttachFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAttachFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.btnAttachFile.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAttachFile.Location = new System.Drawing.Point(41, 481);
             this.btnAttachFile.Name = "btnAttachFile";
             this.btnAttachFile.Size = new System.Drawing.Size(229, 38);
             this.btnAttachFile.TabIndex = 6;
             this.btnAttachFile.Text = "Attach Image/Document";
-            this.btnAttachFile.UseVisualStyleBackColor = true;
+            this.btnAttachFile.UseVisualStyleBackColor = false;
             this.btnAttachFile.Click += new System.EventHandler(this.btnAttachFile_Click);
             // 
             // lblAttachment
             // 
             this.lblAttachment.AutoSize = true;
-            this.lblAttachment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAttachment.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblAttachment.Location = new System.Drawing.Point(290, 490);
             this.lblAttachment.Name = "lblAttachment";
-            this.lblAttachment.Size = new System.Drawing.Size(125, 20);
+            this.lblAttachment.Size = new System.Drawing.Size(127, 23);
             this.lblAttachment.TabIndex = 7;
             this.lblAttachment.Text = "No file selected";
             // 
@@ -139,10 +140,10 @@
             // lblProgress
             // 
             this.lblProgress.AutoSize = true;
-            this.lblProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProgress.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblProgress.Location = new System.Drawing.Point(37, 547);
             this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(132, 20);
+            this.lblProgress.Size = new System.Drawing.Size(131, 23);
             this.lblProgress.TabIndex = 8;
             this.lblProgress.Text = "Report Progress";
             // 
@@ -158,22 +159,24 @@
             // lblEngagementMessage
             // 
             this.lblEngagementMessage.AutoSize = true;
-            this.lblEngagementMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEngagementMessage.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblEngagementMessage.Location = new System.Drawing.Point(43, 644);
             this.lblEngagementMessage.Name = "lblEngagementMessage";
-            this.lblEngagementMessage.Size = new System.Drawing.Size(329, 20);
+            this.lblEngagementMessage.Size = new System.Drawing.Size(341, 23);
             this.lblEngagementMessage.TabIndex = 10;
             this.lblEngagementMessage.Text = "Every report helps improve our community!";
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSubmit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
+            this.btnSubmit.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnSubmit.ForeColor = System.Drawing.Color.White;
             this.btnSubmit.Location = new System.Drawing.Point(41, 683);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(229, 38);
             this.btnSubmit.TabIndex = 11;
             this.btnSubmit.Text = "Submit";
-            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.UseVisualStyleBackColor = false;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // btnBack
@@ -192,10 +195,11 @@
             // 
             this.lblTitleReport.AutoSize = true;
             this.lblTitleReport.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTitleReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitleReport.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitleReport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
             this.lblTitleReport.Location = new System.Drawing.Point(0, 0);
             this.lblTitleReport.Name = "lblTitleReport";
-            this.lblTitleReport.Size = new System.Drawing.Size(330, 39);
+            this.lblTitleReport.Size = new System.Drawing.Size(302, 45);
             this.lblTitleReport.TabIndex = 13;
             this.lblTitleReport.Text = "REPORT AN ISSUE";
             // 

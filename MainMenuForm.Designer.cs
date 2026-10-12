@@ -37,48 +37,56 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(75)))), ((int)(((byte)(80)))));
             this.lblTitle.Location = new System.Drawing.Point(200, 64);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(621, 46);
+            this.lblTitle.Size = new System.Drawing.Size(600, 54);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Municipal Services Application";
             this.lblTitle.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnReportIssues
             // 
-            this.btnReportIssues.Location = new System.Drawing.Point(377, 172);
+            this.btnReportIssues.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.btnReportIssues.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportIssues.Location = new System.Drawing.Point(332, 172);
             this.btnReportIssues.Name = "btnReportIssues";
-            this.btnReportIssues.Size = new System.Drawing.Size(233, 41);
+            this.btnReportIssues.Size = new System.Drawing.Size(291, 41);
             this.btnReportIssues.TabIndex = 1;
             this.btnReportIssues.Text = "Report Issues";
-            this.btnReportIssues.UseVisualStyleBackColor = true;
+            this.btnReportIssues.UseVisualStyleBackColor = false;
             this.btnReportIssues.Click += new System.EventHandler(this.btnReportIssues_Click);
             // 
             // btnLocalEvents
             // 
-            this.btnLocalEvents.Enabled = false;
-            this.btnLocalEvents.Location = new System.Drawing.Point(377, 240);
+            this.btnLocalEvents.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.btnLocalEvents.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLocalEvents.Location = new System.Drawing.Point(332, 241);
             this.btnLocalEvents.Name = "btnLocalEvents";
-            this.btnLocalEvents.Size = new System.Drawing.Size(233, 41);
+            this.btnLocalEvents.Size = new System.Drawing.Size(291, 41);
             this.btnLocalEvents.TabIndex = 2;
             this.btnLocalEvents.Text = "Local Events and Announcements";
-            this.btnLocalEvents.UseVisualStyleBackColor = true;
+            this.btnLocalEvents.UseVisualStyleBackColor = false;
+            this.btnLocalEvents.Click += new System.EventHandler(this.btnLocalEvents_Click);
             // 
             // btnServiceRequestStatus
             // 
+            this.btnServiceRequestStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
             this.btnServiceRequestStatus.Enabled = false;
-            this.btnServiceRequestStatus.Location = new System.Drawing.Point(377, 318);
+            this.btnServiceRequestStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnServiceRequestStatus.Location = new System.Drawing.Point(332, 318);
             this.btnServiceRequestStatus.Name = "btnServiceRequestStatus";
-            this.btnServiceRequestStatus.Size = new System.Drawing.Size(233, 41);
+            this.btnServiceRequestStatus.Size = new System.Drawing.Size(291, 41);
             this.btnServiceRequestStatus.TabIndex = 3;
             this.btnServiceRequestStatus.Text = "Service Request Status";
-            this.btnServiceRequestStatus.UseVisualStyleBackColor = true;
+            this.btnServiceRequestStatus.UseVisualStyleBackColor = false;
             // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(982, 553);
             this.Controls.Add(this.btnServiceRequestStatus);
             this.Controls.Add(this.btnLocalEvents);
