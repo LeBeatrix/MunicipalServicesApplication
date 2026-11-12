@@ -67,6 +67,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IssueReport.cs" />
+    <Compile Include="IssueRepository.cs" />
+    <Compile Include="AppTheme.cs" />
+    <Compile Include="EventSearch.cs" />
+    <Compile Include="RequestStructureDemo.cs" />
+    <Compile Include="DataStructures\BasicTrees.cs" />
+    <Compile Include="DataStructures\SearchTrees.cs" />
+    <Compile Include="DataStructures\MinHeap.cs" />
+    <Compile Include="DataStructures\RequestGraph.cs" />
+    <Compile Include="AddEventForm.cs"><SubType>Form</SubType></Compile>
+    <Compile Include="ServiceRequestStatusForm.cs"><SubType>Form</SubType></Compile>
     <Compile Include="LocalEventsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +142,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <None Include="lecturer-feedback-changes.md" />
+    <None Include="Part3_ProjectCompletionReport_DRAFT.md" />
+    <None Include="manual-testing-checklist.md" />
+    <None Include="verification-results.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

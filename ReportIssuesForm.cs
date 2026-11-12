@@ -12,13 +12,15 @@ namespace MunicipalServicesApplication
 {
     public partial class ReportIssuesForm : Form
     {
-        private List<IssueReport> issueReports =
-            new List<IssueReport>();
 
         private string selectedAttachmentPath = "";
         public ReportIssuesForm()
         {
             InitializeComponent();
+            AppTheme.Apply(this);
+            AutoScroll = true;
+            cmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
+            lblTitleReport.Text = "Report an Issue";
 
             cmbCategory.Items.Add("Sanitation");
             cmbCategory.Items.Add("Roads");
@@ -171,7 +173,7 @@ namespace MunicipalServicesApplication
                 AttachmentPath = selectedAttachmentPath
             };
 
-            issueReports.Add(newReport);
+            IssueRepository.AddIssue(newReport);
 
             MessageBox.Show(
                 "Thank you for helping improve your community!"
@@ -184,6 +186,9 @@ namespace MunicipalServicesApplication
                 "Report Submitted",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+
+            if (IssueRepository.StorageWarning != null)
+                MessageBox.Show(IssueRepository.StorageWarning, "Local storage warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             ClearForm();
         }
@@ -208,10 +213,6 @@ namespace MunicipalServicesApplication
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            MainMenuForm mainMenu = new MainMenuForm();
-
-            mainMenu.Show();
-
             this.Close();
         }
     }

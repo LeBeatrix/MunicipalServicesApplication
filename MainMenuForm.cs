@@ -15,6 +15,10 @@ namespace MunicipalServicesApplication
         public MainMenuForm()
         {
             InitializeComponent();
+            btnServiceRequestStatus.Enabled = true;
+            btnServiceRequestStatus.Click += btnServiceStatus_Click;
+            AppTheme.Apply(this);
+            MinimumSize = Size;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -24,27 +28,17 @@ namespace MunicipalServicesApplication
 
         private void btnReportIssues_Click(object sender, EventArgs e)
         {
-            ReportIssuesForm reportForm = new ReportIssuesForm();
-
-            reportForm.Show();
-
-            this.Hide();
+            using (var reportForm = new ReportIssuesForm()) reportForm.ShowDialog(this);
         }
 
         private void btnLocalEvents_Click(object sender, EventArgs e)
         {
-            LocalEventsForm eventsForm = new LocalEventsForm();
-            eventsForm.ShowDialog();
+            using (var eventsForm = new LocalEventsForm()) eventsForm.ShowDialog(this);
         }
 
         private void btnServiceStatus_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(
-                "Service Request Status will be implemented in Part 3.",
-                "Coming Soon",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
+            using (var statusForm = new ServiceRequestStatusForm()) statusForm.ShowDialog(this);
         }
     }
 }

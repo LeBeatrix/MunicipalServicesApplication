@@ -16,12 +16,14 @@ namespace MunicipalServicesApplication
 
         public DateTime DateReported { get; set; }
 
+        public string Status { get; set; } = RequestStatuses.Pending;
+        public DateTime LastUpdated { get; set; } = DateTime.Now;
+
         public IssueReport()
         {
             ReferenceNumber = Guid.NewGuid()
-                .ToString()
-                .Substring(0, 8)
-                .ToUpper();
+                .ToString("N")
+                .ToUpperInvariant();
 
             DateReported = DateTime.Now;
         }

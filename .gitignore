@@ -5,6 +5,24 @@
 
 # dotenv files
 .env
+.env.*
+!.env.example
+!.env.sample
+
+# Local credentials, private keys and application data
+.aws/
+.ssh/
+secrets.json
+secrets.*.json
+credentials.json
+credentials.*.json
+*.pem
+*.key
+*.p12
+*.snk
+requests.xml
+requests.xml.*
+*.bak
 
 # User-specific files
 *.rsuser

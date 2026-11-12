@@ -9,6 +9,8 @@ namespace MunicipalServicesApplication
     {
         // Stores all available events for display and future searching.
         private List<MunicipalEvent> allEvents;
+        private static List<MunicipalEvent> sessionEvents;
+        private readonly TextBox txtKeyword = new TextBox { Width = 330, AccessibleName = "Event title or description keyword" };
 
         private Dictionary<string, List<MunicipalEvent>> eventsByCategory =
             new Dictionary<string, List<MunicipalEvent>>();
@@ -25,6 +27,7 @@ namespace MunicipalServicesApplication
         public LocalEventsForm()
         {
             InitializeComponent();
+            ConfigureLayout();
 
             SetupEventGrid();
             LoadSampleEvents();
@@ -45,6 +48,74 @@ namespace MunicipalServicesApplication
 
 
 
+        private void ConfigureLayout()
+        {
+            SuspendLayout();
+            Text = "Municipal Services | Local Events and Announcements";
+            ClientSize = new System.Drawing.Size(1100, 760);
+            MinimumSize = new System.Drawing.Size(920, 650);
+            var layout = new TableLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(20), ColumnCount = 1, RowCount = 6 };
+            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 120));
+            // Reparent original controls to retain all existing handler wiring.
+            Controls.Add(layout);
+            lblTitle.Dock = DockStyle.Fill;
+            layout.Controls.Add(lblTitle);
+            var filters = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true, WrapContents = true };
+            filters.Controls.Add(AppTheme.Label("Title / keyword:"));
+            filters.Controls.Add(txtKeyword);
+            filters.Controls.Add(lblCategory);
+            filters.Controls.Add(cmbCategory);
+            filters.Controls.Add(chkFilterDate);
+            filters.Controls.Add(dtpSearchDate);
+            filters.Controls.Add(btnSearch);
+            filters.Controls.Add(btnClear);
+            filters.Controls.Add(AppTheme.Button("Add Event / Announcement", AddEvent));
+            foreach (Control control in filters.Controls) control.Margin = new Padding(6, 8, 6, 8);
+            lblSearchDate.Visible = false;
+            layout.Controls.Add(filters);
+            lblEvents.Text = "Events and announcements (includes illustrative sample data)";
+            layout.Controls.Add(lblEvents);
+            dgvEvents.Dock = DockStyle.Fill;
+            layout.Controls.Add(dgvEvents);
+            var details = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true };
+            details.Controls.Add(lblRecommendations);
+            details.Controls.Add(btnViewDetails);
+            layout.Controls.Add(details);
+            lstRecommendations.Dock = DockStyle.Fill;
+            layout.Controls.Add(lstRecommendations);
+            txtKeyword.KeyDown += (sender, args) => { if (args.KeyCode == Keys.Enter) { SearchEvents(); args.SuppressKeyPress = true; } };
+            AppTheme.Apply(this);
+            ResumeLayout(true);
+        }
+
+        private void AddEvent(object sender, EventArgs e)
+        {
+            using (var dialog = new AddEventForm(eventsByCategory.Keys))
+            {
+                if (dialog.ShowDialog(this) != DialogResult.OK) return;
+                AddMunicipalEvent(dialog.CreatedEvent);
+            }
+        }
+
+        // Shared seam for the Add dialog and automated integration checks.
+        public void AddMunicipalEvent(MunicipalEvent item)
+        {
+            string error = EventSearch.Validate(item);
+            if (error != null) throw new ArgumentException(error, nameof(item));
+            foreach (string existing in eventsByCategory.Keys)
+                if (string.Equals(existing, item.Category, StringComparison.OrdinalIgnoreCase)) item.Category = existing;
+            allEvents.Add(item);
+            BuildEventDataStructures();
+            PopulateCategories();
+            ClearFilters();
+            lblEvents.Text = "Added " + item.EventName + " - available for this application session";
+        }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             SearchEvents();
@@ -59,6 +130,7 @@ namespace MunicipalServicesApplication
         {
             dgvEvents.AutoGenerateColumns = false;
             dgvEvents.Columns.Clear();
+            dgvEvents.Columns.Add(new DataGridViewTextBoxColumn { Name = "colKind", HeaderText = "Type", DataPropertyName = "Kind", FillWeight = 80 });
 
             dgvEvents.ReadOnly = true;
             dgvEvents.AllowUserToAddRows = false;
@@ -110,6 +182,7 @@ namespace MunicipalServicesApplication
 
         private void LoadSampleEvents()
         {
+            if (sessionEvents != null) { allEvents = sessionEvents; return; }
             allEvents = new List<MunicipalEvent>
             {
                 new MunicipalEvent
@@ -182,6 +255,10 @@ namespace MunicipalServicesApplication
                         "Learn about community safety and emergency preparedness."
                 }
             };
+            allEvents.Add(new MunicipalEvent { EventName = "Water Maintenance Notice", Kind = "Announcement", Category = "Services", EventDate = DateTime.Today.AddDays(2), Location = "Ward 4", Description = "Illustrative notice: planned water maintenance. Sample data only." });
+            allEvents.Add(new MunicipalEvent { EventName = "Library Reading Circle", Category = "Education", EventDate = DateTime.Today.AddDays(5), Location = "Public Library", Description = "Join residents for a reading and storytelling session." });
+            allEvents.Add(new MunicipalEvent { EventName = "Road Works Notice", Kind = "Announcement", Category = "Services", EventDate = DateTime.Today.AddDays(9), Location = "Market Street", Description = "Illustrative notice: road resurfacing and access changes. Sample data only." });
+            sessionEvents = allEvents;
         }
 
         private void DisplayEvents(List<MunicipalEvent> eventsToDisplay)
@@ -217,7 +294,8 @@ namespace MunicipalServicesApplication
                 cmbCategory.SelectedItem?.ToString() ?? "All Categories";
 
             // Record the search using the Stack.
-            string searchRecord = selectedCategory;
+            string searchRecord = selectedCategory; // Keep category first for recommendation history.
+            if (!string.IsNullOrWhiteSpace(txtKeyword.Text)) searchRecord += " | keyword: " + txtKeyword.Text.Trim();
 
             if (chkFilterDate.Checked)
             {
@@ -240,17 +318,8 @@ namespace MunicipalServicesApplication
                 eventsToSearch = new List<MunicipalEvent>();
             }
 
-            foreach (MunicipalEvent municipalEvent in eventsToSearch)
-            {
-                bool matchesDate =
-                    !chkFilterDate.Checked ||
-                    municipalEvent.EventDate.Date == dtpSearchDate.Value.Date;
-
-                if (matchesDate)
-                {
-                    filteredEvents.Add(municipalEvent);
-                }
-            }
+            filteredEvents = EventSearch.Filter(eventsToSearch, txtKeyword.Text, selectedCategory,
+                chkFilterDate.Checked ? (DateTime?)dtpSearchDate.Value.Date : null);
 
             DisplayEvents(filteredEvents);
             GenerateRecommendations();
@@ -352,8 +421,10 @@ namespace MunicipalServicesApplication
 
         private void ClearFilters()
         {
+            txtKeyword.Clear();
             cmbCategory.SelectedIndex = 0;
             chkFilterDate.Checked = false;
+            dtpSearchDate.Value = DateTime.Today;
 
             // Restore upcoming events using the FIFO queue.
             DisplayEvents(GetUpcomingEventsFromQueue());
@@ -468,7 +539,7 @@ namespace MunicipalServicesApplication
 
             // Display the event details.
             string details =
-                "Event: " + selectedEvent.EventName + Environment.NewLine +
+                selectedEvent.Kind + ": " + selectedEvent.EventName + Environment.NewLine +
                 "Category: " + selectedEvent.Category + Environment.NewLine +
                 "Date: " + selectedEvent.EventDate.ToString("dd MMMM yyyy") +
                 Environment.NewLine +
@@ -488,6 +559,7 @@ namespace MunicipalServicesApplication
     public class MunicipalEvent
     {
         public string EventName { get; set; }
+        public string Kind { get; set; } = "Event";
 
         public string Category { get; set; }
 
