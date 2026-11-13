@@ -90,5 +90,4 @@ This runs the same checks plus a rendering group which briefly creates offscreen
 
 - `lecturer-feedback-changes.md`: feedback mapped to actual changes and limitations.
 - `Part3_ProjectCompletionReport_DRAFT.md`: draft completion report, tradeoffs and reflection prompts needing student review.
-- `manual-testing-checklist.md`: manual checks and recommended screenshots for the final Word submission.
 - `verification-results.md`: executed commands and observed evidence, with manual gaps distinguished.
