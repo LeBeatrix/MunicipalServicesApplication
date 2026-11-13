@@ -6,17 +6,17 @@ This draft describes the implementation in this repository. It is not a declarat
 
 ## Project completion and scope
 
-The project remains one C# Windows Forms application targeting .NET Framework 4.7.2. Part 1 issue reporting, Part 2 local events/announcements and Part 3 service-request tracking share the existing application menu. The same IssueReport submitted in Part 1 is stored and displayed in Part 3, with a unique reference, status and last-updated time. There is no duplicate service-request model or external database.
+The project remains one C# Windows Forms application targeting .NET Framework 4.7.2. Part 1 issue reporting, Part 2 local events/announcements, and Part 3 service-request tracking share the existing application menu. The same IssueReport submitted in Part 1 is stored and displayed in Part 3, with a unique reference, status and last-updated time. There is no duplicate service-request model or external database.
 
 Residents can inspect records and find a reference without case sensitivity. Reviewers select a request and update Pending, In Progress or Resolved. A shared store notifies both table views and updates counts. These tabs demonstrate two workflows without authentication or access-control guarantees. In-app updates meet the requested notification scope.
 
-Part 2 now supports free-text title/description search combined with category/date filters; clearing resets the filters. A validated creation dialog adds events and announcements to all relevant collections. There are ten samples, including two announcements. Recommendations continue using the pre-existing custom priority queue and category search history.
+Part 2 now supports free-text title/description search combined with category/date filters; clearing resets the filters. A validated creation dialogue adds events and announcements to all relevant collections. There are ten samples, including two announcements. Recommendations continue using the pre-existing custom priority queue and category search history.
 
 ## Design and implementation
 
 ### Model and repository integration
 
-The implementation extends the existing IssueReport and IssueRepository seam. IssueStore separates storage behavior from the static application facade so tests can create isolated stores. The list provides display snapshots and the dictionary provides case-insensitive reference retrieval. Copies prevent a table consumer changing the repository without validation. Full GUID generation is combined with an insertion collision check; the collision case is explicitly tested.
+The implementation extends the existing IssueReport and IssueRepository seam. IssueStore separates storage behaviour from the static application facade so tests can create isolated stores. The list provides display snapshots and the dictionary provides case-insensitive reference retrieval. Copies prevent a table consumer from changing the repository without validation. Full GUID generation is combined with an insertion collision check; the collision case is explicitly tested.
 
 ### Persistence and error recovery
 
@@ -26,22 +26,22 @@ This is single-process storage. Concurrent instances, multi-device merging, data
 
 ### Advanced structures and honest separation of roles
 
-A labeled educational tab takes request snapshots and supplements small datasets with DEMO records that are never persisted. A maximum of 40 real records bounds the intentionally unbalanced BST example.
+A labelled educational tab takes request snapshots and supplements small datasets with DEMO records that are never persisted. A maximum of 40 real records bounds the intentionally unbalanced BST example.
 
 - The ordinary tree groups municipality -> category -> request leaves; pre-order traversal visits every node.
 - The binary decision tree routes statuses through yes/no branches to completed, continue work or await review.
 - The BST orders references and demonstrates how sorted insertion creates skew.
 - The AVL tree caches heights and uses single/double rotations to maintain balance.
-- The left-leaning red-black tree uses rotations and color flips, and validates black-root, red-link and black-height rules.
+- The left-leaning red-black tree uses rotations and colour flips, and validates black-root, red-link and black-height rules.
 - The array min heap creates an illustrative work sequence, with FIFO ties. It is separate from the existing sorted-dictionary event priority queue.
 - The undirected adjacency list connects four request references with fixed illustrative coordination costs. BFS shows reachability and order using a queue/visited set.
-- Kruskal sorts edges and uses union-find to reject cycles. The example MST has three edges and total cost four; disconnected inputs return a forest.
+- Kruskal sorts edges and uses union-find to reject cycles. The example MST has three edges and a total cost of four; disconnected inputs return a forest.
 
 These trees/heap/graph are demonstrations. Production reference lookup actually uses the dictionary. Graph weights are educational costs with no geographical measurement. An MST connects vertices at minimum total edge weight; it does not calculate shortest travel routes or dispatch instructions. README documents concrete operations, complexity bounds and storage costs. No tree-deletion API is claimed.
 
 ### Interface and compatibility
 
-Shared styling gives the forms consistent typography, actions, grid headers and selection colors. The events screen reparents existing controls into layout panels, retaining handlers. The new status and creation forms also use layout panels. Original Designer and resource files are preserved. Runtime-created controls can be maintained in code but are not all available as drag-and-drop Designer controls. Main-menu navigation disposes owned modal forms instead of accumulating hidden windows.
+Shared styling gives the forms consistent typography, actions, grid headers and selection colours. The events screen reparents existing controls into layout panels, retaining handlers. The new status and creation forms also use layout panels. Original Designer and resource files are preserved. Runtime-created controls can be maintained in code but are not all available as drag-and-drop Designer controls. Main-menu navigation disposes of owned modal forms instead of accumulating hidden windows.
 
 ## Challenges and solutions
 
@@ -54,12 +54,12 @@ Shared styling gives the forms consistent typography, actions, grid headers and 
 | Initial persistence test exposed uncaught InvalidDataException | Add it explicitly to handled storage errors; rerun corruption/duplicate-file regression checks. |
 | Balanced-tree correctness is more than sorted traversal | Validate AVL cached heights/balance and red-black link/color/black-height invariants after each insertion. |
 | MST total could look plausible despite wrong algorithm | Compare deterministic fixtures and 30 complete four-vertex graphs against an exhaustive edge-subset/reachability oracle independent of union-find. |
-| Part 2 indexes can become stale after additions | Centralize acceptance through AddMunicipalEvent, rebuild all collections and immediately refresh filters/grid/recommendations. |
+| Part 2 indexes can become stale after additions | Centralise acceptance through AddMunicipalEvent, rebuild all collections and immediately refresh filters/grid/recommendations. |
 | Hidden form rendering gave blank initial previews | Treat that output as invalid visual evidence; use an optional offscreen-window rendering mode and retain manual display/DPI checks. |
 
 ### Personal reflection on understanding and implementing advanced data structures
 
-One of the most challenging aspects of developing the Municipal Services Application was understanding and implementing the advanced data structures required for Part 3. Although I had previously worked with simpler collections, such as lists, dictionaries, queues and stacks, the introduction of binary search trees, AVL trees, red-black trees, heaps and graph algorithms required a deeper understanding of how data can be organised, searched and processed efficiently.
+One of the most challenging aspects of developing the Municipal Services Application was understanding and implementing the advanced data structures required for Part 3. Although I had previously worked with simpler collections, such as lists, dictionaries, queues, and stacks, the introduction of binary search trees, AVL trees, red-black trees, heaps and graph algorithms required a deeper understanding of how data can be organised, searched and processed efficiently.
 
 A particular challenge was understanding the differences between ordinary binary search trees and self-balancing trees. I needed to understand how AVL trees use rotations to maintain balance and how red-black trees use node colours, rotations and specific rules to prevent excessive tree height. Understanding graph traversal and minimum spanning tree algorithms also required additional attention, particularly the difference between visiting connected nodes using breadth-first search and identifying a minimum-cost set of connections using Kruskal's algorithm.
 
@@ -73,7 +73,7 @@ Through this process, I developed a better appreciation of the importance of sel
 
 See verification-results.md for exact executed commands and current results. The console harness runs without third-party packages and returns failure exit codes. It covers request creation, 10,000 references and collision repair, retrieval, status updates, persistence and failures, tree operations/invariants, heap ordering, graph traversal, MST correctness, search intersections and form integration. The test harness uses its own data; it does not alter saved resident requests.
 
-Automated form construction, bindings and handler checks do not prove mouse/keyboard usability, native file-dialog behavior, every DPI setting or Visual Studio Designer operation. Those checks are listed in manual-testing-checklist.md. Only screenshots captured from the final running application should be used as final submission evidence. Record actual outcomes and dates rather than checking boxes speculatively.
+Automated form construction, bindings and handler checks do not prove mouse/keyboard usability, native file-dialogue behaviour, every DPI setting or Visual Studio Designer operation. Those checks are listed in manual-testing-checklist.md. Only screenshots captured from the final running application should be used as final submission evidence. Record actual outcomes and dates rather than checking boxes speculatively.
 
 ## Lessons learned - student review required
 
@@ -101,12 +101,10 @@ Overall, this project contributed to my technical development and reinforced the
 These are design recommendations based on this repository's requirements, not an assertion that a migration has been completed:
 
 1. Retain C# WinForms and .NET Framework 4.7.2 for this submission: it preserves a working Windows desktop solution, existing controls and assessment continuity. A platform migration would add unrelated compatibility work.
-2. Keep the local list/dictionary plus XML for the required local prototype: they support a small dataset without external infrastructure and allow explicit demonstration of structures. Full-file XML saves cost O(n) and suit a modest single-process workload; they are not a multi-user transaction system.
-3. Keep the testable store and dependency-free harness: isolated paths permit repeatable persistence-failure tests without resident data. A larger maintained product could consider a conventional test runner once dependency management is authorized.
-4. If future requirements demand multiple simultaneous users or private requester data, first define identity, authorization, privacy, audit and concurrency requirements. Then evaluate transactional storage and an authenticated service boundary. Workflow tabs alone cannot satisfy those requirements.
-5. If real dispatch is later needed, obtain valid geographic/operational data and define routing constraints before selecting a graph algorithm. The current illustrative MST should remain labeled educational until such a requirement exists.
-
-**[STUDENT REVIEW]** Confirm these recommendations match the lecturer's rubric and add any institution-required references using sources you have checked. No external technology adoption, performance benchmarks, deployment or lecturer acceptance is claimed.
+2. Keep the local list/dictionary plus XML for the required local prototype: they support a small dataset without external infrastructure and allow explicit demonstration of structures. Full-file XML saves cost O(n) and suits a modest single-process workload; they are not a multi-user transaction system.
+3. Keep the testable store and dependency-free harness: isolated paths permit repeatable persistence-failure tests without resident data. A larger maintained product could consider a conventional test runner once dependency management is authorised.
+4. If future requirements demand multiple simultaneous users or private requester data, first define identity, authorisation, privacy, audit and concurrency requirements. Then evaluate transactional storage and an authenticated service boundary. Workflow tabs alone cannot satisfy those requirements.
+5. If real dispatch is later needed, obtain valid geographic/operational data and define routing constraints before selecting a graph algorithm. The current illustrative MST should remain labelled educational until such a requirement exists.
 
 ## Submission readiness
 
